@@ -56,7 +56,7 @@
       <a href="" ng-click="toggle_showdetail()" ng-show="showdetail">隐藏详情</a>
       <a ng-href="#/urls/{{record.urldetail.id}}/{{record.uid}}">查看</a>
       <span class="time">{{record.date | date: 'MM-dd HH:mm:ss'}}</span>
-      <a ng-href="#/users/{{record.uid}}/session/{{record.sessionid}}"><span class="label label-info sessionid">{{record.sessionid}}</span></a>
+      <span class="label label-info sessionid">{{record.sessionid}}</span>
     </div>
   </li>
 </ul>

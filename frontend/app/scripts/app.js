@@ -5,9 +5,10 @@ var host = 'localhost';
 var app = angular.module('frontendApp', ['ngResource', 'ui.bootstrap']);
 
 app.factory('User', function($resource) {
-  return $resource('http://' + host + '::port/users/:id/:verb', {'port': 9292, 'id': '@uid'}, {
+  return $resource('http://' + host + '::port/users/:id/:verb/:subid', {'port': 9292, 'id': '@uid'}, {
                     query: { method: 'GET', params: {}, isArray: false },
-                    records: { method: 'GET', params: {verb: 'records'}, isArray: false }
+                    records: { method: 'GET', params: {verb: 'records'}, isArray: false },
+                    session: { method: 'GET', params: {verb: 'session'}, isArray: false }
                   });
 });
 
@@ -32,6 +33,10 @@ app.config(function ($routeProvider) {
       .when('/urls/:id/:uid', {
         templateUrl: 'views/url.html',
         controller: 'UrlCtrl'
+      })
+      .when('/users/:id/session/:sessionid', {
+        templateUrl: 'views/session.html',
+        controller: 'SessionCtrl'
       })
       .otherwise({
         redirectTo: '/users'
