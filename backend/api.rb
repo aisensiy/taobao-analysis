@@ -35,7 +35,18 @@ class API < Grape::API
         { count: count, results: records }
       end
     end
+  end
 
+  resource :sessions do
+    desc 'Return a session'
+    params do
+      require :sessionid, type: Integer
+    end
+    get ':sessionid' do
+      records = Record.where(sessionid: params[:sessionid]).includes(:urldetail).page(params[:page]).map {|obj| obj.as_json(include: :urldetail) }
+      count   = Record.where(sessionid: params[:sessionid]).count
+      { count: count, results: records }
+    end
   end
 
   resource :urls do

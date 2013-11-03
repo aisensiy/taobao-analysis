@@ -28,7 +28,7 @@ class User < ActiveRecord::Base
 end
 
 class Record < ActiveRecord::Base
-  self.table_name = 'taobao'
+  self.table_name = 'records'
 
   has_one :urldetail, class_name: 'Url', foreign_key: 'url_md5', primary_key: 'url_md5', select: [:id, :urlpath, :cleanurl, :url_md5, :title]
 end
