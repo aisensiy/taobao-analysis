@@ -1,0 +1,44 @@
+<table class="table table-striped table-bordered">
+  <colgroup>
+     <col span="1" style="width: 180px;">
+     <col span="1" style="width: 65px;">
+     <col span="1" style="width: 45px;">
+     <col span="1" style="">
+     <col span="1" style="">
+     <col span="1" style="">
+     <col span="1" style="">
+     <col span="1" style="">
+     <col span="1" style="">
+  </colgroup>
+  <thead>
+    <tr>
+      <th>uid</th>
+      <th>gender</th>
+      <th>city</th>
+      <th>income_pre</th>
+      <th>income_fml</th>
+      <th>education</th>
+      <th>job</th>
+      <th>industry</th>
+      <th>birth</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="obj in users">
+      <td><a ng-href="#/users/{{obj.uid}}/records">{{obj.uid}}</a></td>
+      <td>{{obj.gender}}</td>
+      <td>{{obj.city}}</td>
+      <td>{{obj.income_pre}}</td>
+      <td>{{obj.income_fml}}</td>
+      <td>{{obj.education}}</td>
+      <td>{{obj.job}}</td>
+      <td>{{obj.industry}}</td>
+      <td>{{obj.birth}}</td>
+    </tr>
+  </tbody>
+</table>
+<div class="paginate-wrapper" ng-show="paging">
+  <pagination total-items="paging.total" items-per-page="50" page="paging.current_page" max-size="paging.max_size" class="pagination-small" boundary-links="true" rotate="false" on-select-page="pageChanged(page)"></pagination>
+</div>
+
+

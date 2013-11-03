@@ -1,0 +1,10 @@
+<ol class="breadcrumb">
+  <li><a href="#/users">users</a></li> /
+  <li><a href="#/users/{{uid}}/records">{{uid}}</a></li> /
+  <li class="active">Data</li>
+</ol>
+
+<h4>{{urlobj.title}}</h4>
+<h4>{{urlobj.cleanurl || urlobj.url}}</h4>
+<div>{{urlobj.content}}</div>
+<iframe src="{{urlobj.url}}" style="width: 100%; height: 600px"></iframe>

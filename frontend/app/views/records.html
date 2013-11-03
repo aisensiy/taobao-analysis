@@ -1,0 +1,65 @@
+<ol class="breadcrumb">
+  <li><a href="#/users">users</a></li>
+</ol>
+
+<table class="table table-striped table-bordered">
+  <colgroup>
+     <col span="1" style="width: 180px;">
+     <col span="1" style="width: 65px;">
+     <col span="1" style="width: 45px;">
+     <col span="1" style="">
+     <col span="1" style="">
+     <col span="1" style="">
+     <col span="1" style="">
+     <col span="1" style="">
+     <col span="1" style="">
+  </colgroup>
+  <thead>
+    <tr>
+      <th>uid</th>
+      <th>gender</th>
+      <th>city</th>
+      <th>income_pre</th>
+      <th>income_fml</th>
+      <th>education</th>
+      <th>job</th>
+      <th>industry</th>
+      <th>birth</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{user.uid}}</td>
+      <td>{{user.gender}}</td>
+      <td>{{user.city}}</td>
+      <td>{{user.income_pre}}</td>
+      <td>{{user.income_fml}}</td>
+      <td>{{user.education}}</td>
+      <td>{{user.job}}</td>
+      <td>{{user.industry}}</td>
+      <td>{{user.birth}}</td>
+    </tr>
+  </tbody>
+</table>
+<div class="paginate-wrapper" ng-show="paging">
+  <pagination total-items="paging.total" max-size="paging.max_size" items-per-page="50" page="paging.current_page" class="pagination-small" boundary-links="true" rotate="false" on-select-page="pageChanged(page)"></pagination>
+</div>
+<ul class="unstyled record-list">
+  <li ng-repeat="record in records" class="clearfix session-{{record.sessionid % 3}}" ng-controller="RecordItemCtrl">
+    <div class="wrapper">
+      <a class="title" ng-href="{{record.url}}" target="_blank">{{record.urldetail.title}}</a> <a class="url" target="_blank" ng-href="{{record.url}}" title="{{record.url}}">{{record.url}}</a>
+      <br /> <span ng-show="showdetail"> refer: <a class="url" ng-href="{{record.referurl}}" target="_blank" title="{{record.referurl}}">{{record.referurl}}</a></span>
+      <span>{{record.url_kw}}</span>
+    </div>
+    <div class="right-part pull-right">
+      <a href="" ng-click="toggle_showdetail()" ng-hide="showdetail">显示详情</a>
+      <a href="" ng-click="toggle_showdetail()" ng-show="showdetail">隐藏详情</a>
+      <a ng-href="#/urls/{{record.urldetail.id}}/{{record.uid}}">查看</a>
+      <span class="time">{{record.date | date: 'MM-dd HH:mm:ss'}}</span>
+      <span class="label label-info sessionid">{{record.sessionid}}</span>
+    </div>
+  </li>
+</ul>
+<div class="paginate-wrapper" ng-show="paging">
+  <pagination total-items="paging.total" max-size="paging.max_size" items-per-page="50" page="paging.current_page" class="pagination-small" boundary-links="true" rotate="false" on-select-page="pageChanged(page)"></pagination>
+</div>

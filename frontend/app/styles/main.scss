@@ -1,0 +1,97 @@
+$iconSpritePath: "../images/glyphicons-halflings.png";
+$iconWhiteSpritePath: "../images/glyphicons-halflings-white.png";
+
+@import "bootstrap-sass/lib/bootstrap";
+
+/* Put your CSS here */
+html, body {
+  margin: 20px;
+}
+
+body {
+    background: white;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #333;
+}
+
+.hero-unit {
+    margin: 50px auto 0 auto;
+    width: 300px;
+    font-size: 18px;
+    font-weight: 200;
+    line-height: 30px;
+    background-color: #eee;
+    border-radius: 6px;
+    padding: 60px;
+}
+
+.hero-unit h1 {
+    font-size: 60px;
+    line-height: 1;
+    letter-spacing: -1px;
+}
+
+table {
+  table-layout: fixed;
+  td {
+    overflow: auto;
+  }
+  .url {
+    width: 25%;
+  }
+}
+
+.paginate-wrapper {
+  a {
+    cursor: pointer;
+  }
+}
+
+.record-list {
+  .url {
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    vertical-align: bottom;
+  }
+  .title {
+    max-width: 200px;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    vertical-align: bottom;
+  }
+  > li {
+    position: relative;
+    background-color: #eee;
+    padding: 8px;
+    margin: 8px;
+    .wrapper {
+      line-height: 1.5em;
+      float: left;
+      overflow: hidden;
+      max-width: 100%;
+    }
+    .right-part {
+    }
+  }
+
+  .sessionid {
+    opacity: 0.5;
+  }
+}
+
+// http://colrd.com/palette/22620/
+.record-list {
+  >.session-0 {
+    background-color: rgb(231, 229, 231);
+  }
+  >.session-1 {
+    background-color: rgb(211, 241, 229);
+  }
+  >.session-2 {
+    background-color: rgb(255, 255, 229);
+  }
+}
