@@ -47,6 +47,7 @@
 <ul class="unstyled record-list">
   <li ng-repeat="record in records" class="clearfix session-{{record.sessionid % 3}}" ng-controller="RecordItemCtrl">
     <div class="wrapper">
+      <span>{{record.urldetail.description}}</span>
       <a class="title" ng-href="{{record.url}}" target="_blank">{{record.urldetail.title}}</a> <a class="url" target="_blank" ng-href="{{record.url}}" title="{{record.url}}">{{record.url}}</a>
       <br /> <span ng-show="showdetail"> refer: <a class="url" ng-href="{{record.referurl}}" target="_blank" title="{{record.referurl}}">{{record.referurl}}</a></span>
       <span>{{record.url_kw}}</span>

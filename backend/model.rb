@@ -5,10 +5,10 @@ require 'will_paginate/active_record'
 
 config = {
   adapter: 'mysql2',
-  database: 'spide',
-  username: 'kv',
-  password: 'kvlab2013',
-  host: '162.105.11.56'
+  database: 'spider',
+  username: 'root',
+  password: '000000',
+  host: 'localhost'
 }
 
 ActiveRecord::Base.establish_connection(config)
@@ -30,7 +30,7 @@ end
 class Record < ActiveRecord::Base
   self.table_name = 'records'
 
-  has_one :urldetail, class_name: 'Url', foreign_key: 'url_md5', primary_key: 'url_md5', select: [:id, :urlpath, :cleanurl, :url_md5, :title]
+  has_one :urldetail, class_name: 'Url', foreign_key: 'url_md5', primary_key: 'url_md5', select: [:id, :urlpath, :cleanurl, :url_md5, :title, :description]
 end
 
 class Url < ActiveRecord::Base

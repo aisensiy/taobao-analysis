@@ -19,52 +19,67 @@ rules = {
     'info': u'购买列表'
   },
   'wuliu.taobao.com/user/order_detail_new.htm': {
-    'params': ['trade_id'] # seller_id
+    'params': ['trade_id'], # seller_id
+    'info': u'物流信息'
   },
   'login.taobao.com/member/loginByIm.do': {
-    'params': ['defaulturl']
+    'params': ['defaulturl'],
+    'info': u'登录'
   },
   'click.simba.taobao.com/cc_im': {
-    'params': ['e']
+    'params': ['e'],
+    'info': u'推广链接'
   },
   'trade.taobao.com/trade/pay_success.htm': {
-    'params': ['biz_order_id']
+    'params': ['biz_order_id'],
+    'info': u'付款成功'
   },
   's.click.taobao.com/t': {
-    'params': ['e']
+    'params': ['e'],
+    'info': u'推广链接'
   },
   'i.taobao.com/my_taobao.htm': {
-    'params': []
+    'params': [],
+    'info': u'我的淘宝'
   },
   'trade.taobao.com/trade/detail/tradeSnap.htm': {
-    'params': ['tradeID']
+    'params': ['tradeID'],
+    'info': u'交易快照'
   },
   'trade.taobao.com/trade/itemlist/listBoughtItems.htm': {
-    'params': []
+    'params': [],
+    'info': u'我购买的商品'
   },
   'admin.uz.taobao.com/index.do': {
-    'params': ['url']
+    'params': ['url'],
+    'info': u'淘宝优站'
   },
   'trade.taobao.com/trade/trade_success.htm': {
-    'params': ['alipay_no', 'seller_id', 'biz_order_id']
+    'params': ['alipay_no', 'seller_id', 'biz_order_id'],
+    'info': u'交易成功'
   },
   'www.taobao.com/': {
     'params': []
   },
   'ju.taobao.com/tg/home.htm': {
-    'params': ['itemId']
+    'params': ['itemId'],
+    'info': u'聚划算'
   },
   'trade.taobao.com/trade/detail/trade_item_detail.htm': {
-    'params': ['bizOrderId']
+    'params': ['bizOrderId'],
+    'info': u'交易详情'
   },
   'trade.taobao.com/trade/confirm_goods.htm': {
-    'params': ['biz_order_id']
+    'params': ['biz_order_id'],
+    'info': u'交易确认'
   },
   'favorite.taobao.com/collect_list.htm': {
-    'params': []
+    'params': [],
+    'info': u'收藏'
   },
   'vip.taobao.com/vip_home.htm': {
-    'params': []
+    'params': [],
+    'info': u'淘宝会员'
   },
   'trade.taobao.com/trade/itemlist/list_sold_items.htm': {
     'params': []
@@ -102,11 +117,34 @@ def match_pattern(url):
     m = re.match(rule, obj['host'] + obj['path'])
     if m:
       obj['query'] = dict((k, v) for k, v in obj['query'].items() if k in value['params'])
-      return json_to_url(obj)
+      return {
+        'cleanurl': json_to_url(obj),
+        'info': value.get('info', None)
+      }
 
   return None
 
 def update_cleanurl(db):
+  limit = 1000
+  skip = 0
+
+  while True:
+    rows = db.fetchall("select id, url from url where id <= %s and id > %s", (limit + skip, skip))
+    if not len(rows): break
+    skip += limit
+
+    for row in rows:
+      id, url = row
+      if not url: continue
+      result = match_pattern(url)
+      if not result: continue
+      db.execute("update url set cleanurl=%s, description=%s where id = %s", (result['cleanurl'], result['info'], id))
+
+    db.commit()
+
+  db.close()
+
+def update_description(db):
   limit = 1000
   skip = 0
 
@@ -125,6 +163,7 @@ def update_cleanurl(db):
     db.commit()
 
   db.close()
+
 
 def main():
   db = DB(config)
