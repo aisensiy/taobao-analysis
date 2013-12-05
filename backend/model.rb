@@ -3,13 +3,23 @@ require 'active_record'
 require 'will_paginate'
 require 'will_paginate/active_record'
 
-config = {
-  adapter: 'mysql2',
-  database: 'spider',
-  username: 'root',
-  password: '000000',
-  host: 'localhost'
-}
+if ENV["RUBY_ENV"] == 'production'
+  config = {
+    adapter: 'mysql2',
+    database: 'spide',
+    username: 'kv',
+    password: 'kvlab2013',
+    host: 'localhost'
+  }
+else
+  config = {
+    adapter: 'mysql2',
+    database: 'spider',
+    username: 'root',
+    password: '000000',
+    host: 'localhost'
+  }
+end
 
 ActiveRecord::Base.establish_connection(config)
 ActiveRecord::Base.logger = Logger.new(STDOUT)
