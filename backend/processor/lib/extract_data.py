@@ -7,6 +7,8 @@ from common import url_to_json, json_to_url, str_ungzip
 import json
 from pyquery import PyQuery
 import re
+from parse_json_in_taobao import parse_json as parse_taobao_json
+from parse_json_in_tmall import parse_json as parse_tmall_json
 
 tablename = 'url_tmp'
 
@@ -18,7 +20,7 @@ rules = {
             "selector": [ "#detail h3" ]
         },
         "price": {
-            "selector": ["em.tb-rmb-num"],
+            "selector": ["em.tb-rmb-num", ],
             "handler": lambda elem: elem.text().strip()
         },
         "detail": {
@@ -28,8 +30,6 @@ rules = {
         "seller": {
             "selector": [".shop-card a.hCard.fn", '.tm-brand em'],
             'handler': lambda elem: elem.attr['title']
-        },
-        "jsondata": {
         }
     },
     'detail.tmall.com/item.htm': {
@@ -59,6 +59,7 @@ def fetch(url):
 def extract(html, meta):
     page = PyQuery(html)
     title = page('title')
+    print 'start extract'
     print title.text()
     result = []
 
@@ -70,16 +71,16 @@ def extract(html, meta):
                 if len(elem) > 1: elem = PyQuery(elem[0])
                 break
 
-        print '=' * 10
-        print selector
-        if entity["selector"] == [ "#attributes .attributes-list" ]:
-            lis = elem.find('li')
-            print len(lis)
-            for li in lis:
-                print li.text
-        else:
-            print elem
-        print '=' * 10
+        #print '=' * 10
+        #print selector
+        #if entity["selector"] == [ "#attributes .attributes-list" ]:
+        #    lis = elem.find('li')
+        #    print len(lis)
+        #    for li in lis:
+        #        print li.text
+        #else:
+        #    print elem
+        #print '=' * 10
 
         if not elem.text(): continue
 
