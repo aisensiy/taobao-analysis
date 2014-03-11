@@ -4,10 +4,22 @@ from urlparse import urlparse, parse_qs
 from urllib import urlencode
 import re
 import hashlib
+import gzip
+from StringIO import StringIO
 
 import sys
 reload(sys)
 sys.setdefaultencoding("utf-8")
+
+def str_ungzip(content):
+    """
+    Decode gzip and decode utf8
+    """
+    gzipper = gzip.GzipFile(fileobj=StringIO(content))
+    data = gzipper.read()
+    data = data.decode('utf-8')
+    return data
+
 
 def url_to_json(url):
   obj = urlparse(url)
